@@ -1,4 +1,4 @@
-# Mortgage compare application
+# mortgage_compare
 Mortgage various version comparing.
 Created using knockout.js+jQuery on front-end and java servlet on back-end.
 
