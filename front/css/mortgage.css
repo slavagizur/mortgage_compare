@@ -1,0 +1,81 @@
+.mortgageVersion .addNewTab {
+    background: #E8E8E8;
+    border: solid 1px transparent;
+    border-radius: 0 10px 0 0;
+    margin-left: -3px;
+}
+
+.mortgageVersion .addNewTab:hover {
+    background: #E4E4E4;
+}
+
+.mortgageVersion .mortgageParams {
+    border: solid 1px #ccc;
+    margin: 0 0 20px 0;
+    padding: 0.8em;
+    border-radius: 8px;
+}
+
+.mortgageVersion .mortgageInfo {
+    display: table-row;
+    width: 50%;
+}
+
+.mortgageVersion .mortgageInfo span {
+    display: table-cell;
+    padding: 4px;
+}
+
+.mortgageVersion .mortgageInfo span:nth-child(2n+1) {
+    font-weight: bold;
+}
+
+.mortgageVersion .mortgageTable {
+    width: 100%;
+    border: solid #ccc;
+    margin: 0 0 1em 0;
+    border-width: 1px 0 0 1px;
+}
+
+.mortgageVersion .mortgageTable thead {
+    background: #F6F6F6;
+}
+
+.mortgageVersion th {
+    border: solid #ddd;
+    border-width: 0 1px 1px 0;
+}
+
+.mortgageVersion .mortgageTable tbody tr:nth-child(2n) {
+    background: #F6F6F6;
+}
+
+.mortgageVersion .mortgageTable tbody td {
+    padding: 4px;
+    border: solid #ddd;
+    border-width: 0 1px 1px 0;
+}
+
+.mortgageVersion .mortgageTable input {
+    width: 100%;
+    border: none;
+    text-align: right;
+}
+
+.mortgageVersion .mortgageCalcResult {
+    display: table-row;
+    width: 50%;
+}
+
+.mortgageVersion .mortgageCalcResult span {
+    display: table-cell;
+    padding: 4px;
+}
+
+.mortgageVersion .mortgageCalcResult span:nth-child(2n+1) {
+    font-weight: bold;
+}
+
+.mortgageVersion .formatNumber {
+    text-align: right;
+}
