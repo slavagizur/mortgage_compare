@@ -7,7 +7,7 @@ function MortgageMonthCalc(monthNo, amount) {
     self.monthAmount = ko.observable(0);
     self.toPay = ko.observable(0);
 
-    self.formattedMonth = ko.computed(function() {
+    self.formattedMonth = ko.computed(function () {
         var result = "";
         if (self.monthNo >= 12) {
             result += Math.floor(self.monthNo / 12) + "y";
@@ -18,15 +18,15 @@ function MortgageMonthCalc(monthNo, amount) {
         return result;
     });
 
-    self.formattedAmount = ko.computed(function() {
-       return ru.gizur.apps.NumberFormatter.formatMoney(self.amount());
+    self.formattedAmount = ko.computed(function () {
+        return ru.gizur.apps.NumberFormatter.formatMoney(self.amount());
     });
 
-    self.formattedPercentAmount = ko.computed(function() {
+    self.formattedPercentAmount = ko.computed(function () {
         return ru.gizur.apps.NumberFormatter.formatMoney(self.percentAmount());
     });
 
-    self.formattedMonthAmount = ko.computed(function() {
+    self.formattedMonthAmount = ko.computed(function () {
         return ru.gizur.apps.NumberFormatter.formatMoney(self.monthAmount());
     });
 }
@@ -40,7 +40,7 @@ function MortgageVersion(versionName, versionNo) {
     self.monthNumber = 60;
     self.monthsData = ko.observableArray([new MortgageMonthCalc(1, self.desiredAmount() - self.initAmount())]);
 
-    self.addData = function() {
+    self.addData = function () {
         var newMonth = new MortgageMonthCalc(self.monthsData().length + 1, self.desiredAmount() - self.initAmount())
         if (self.monthsData().length > 0) {
             newMonth.toPay(self.monthsData()[self.monthsData().length - 1].toPay());
@@ -48,14 +48,14 @@ function MortgageVersion(versionName, versionNo) {
         self.monthsData.push(newMonth);
         self.calcPercents();
     };
-    self.recalc = function() {
+    self.recalc = function () {
         var monthCount = self.monthsData().length, curAmount = self.desiredAmount() - self.initAmount();
         for (var monthNo = 0; monthNo < monthCount; monthNo++) {
             self.monthsData()[monthNo].amount(curAmount);
             curAmount += (self.monthsData()[monthNo].percentAmount() - self.monthsData()[monthNo].toPay());
         }
     };
-    self.calcPercents = function() {
+    self.calcPercents = function () {
         var monthCount = self.monthsData().length, curAmount = self.desiredAmount() - self.initAmount();
         var dataToSend = {
             initAmount: curAmount,
@@ -65,7 +65,7 @@ function MortgageVersion(versionName, versionNo) {
         for (var monthNo = 0; monthNo < monthCount; monthNo++) {
             dataToSend["toPay" + monthNo] = self.monthsData()[monthNo].toPay();
         }
-        $.getJSON("http://localhost:8080/mortgage", dataToSend, function(resultJSON) {
+        $.getJSON("http://localhost:8080/mortgage", dataToSend, function (resultJSON) {
             var row;
             for (var monthNo = 0; monthNo < monthCount; monthNo++) {
                 row = resultJSON.rows[monthNo];
@@ -76,7 +76,7 @@ function MortgageVersion(versionName, versionNo) {
         });
     };
 
-    self.totalAmount = ko.computed(function() {
+    self.totalAmount = ko.computed(function () {
         var totalAmount = 0;
         var monthCount = self.monthsData().length;
         for (var monthNo = 0; monthNo < monthCount; monthNo++) {
@@ -85,7 +85,7 @@ function MortgageVersion(versionName, versionNo) {
         return ru.gizur.apps.NumberFormatter.formatMoney(totalAmount);
     });
 
-    self.totalPercentAmount = ko.computed(function() {
+    self.totalPercentAmount = ko.computed(function () {
         var totalAmount = 0;
         var monthCount = self.monthsData().length;
         for (var monthNo = 0; monthNo < monthCount; monthNo++) {
@@ -94,32 +94,38 @@ function MortgageVersion(versionName, versionNo) {
         return ru.gizur.apps.NumberFormatter.formatMoney(totalAmount);
     });
 
-    self.getVersionId = ko.computed(function() {
+    self.getVersionId = ko.computed(function () {
         return "#versionTabs-" + self.versionNo;
     });
 
-    self.getVersionTabId = ko.computed(function() {
+    self.getVersionTabId = ko.computed(function () {
         return "versionTabs-" + self.versionNo;
     });
 }
 
-function MortgageModel() {
+function MortgageModel(language) {
     var self = this;
     self.versionCount = 1;
-    
-    self.versions = ko.observableArray([new MortgageVersion("Version 1", self.versionCount)]);
+    self.language = language;
+    var translater = ru.gizur.apps.translater;
 
-    self.addNewVersion = function() {
+    self.versions = ko.observableArray(
+        [new MortgageVersion(translater.getTranslation("Version", self.language) + " 1", self.versionCount)]);
+
+    self.addNewVersion = function () {
         self.versionCount++;
-        var newVersion = new MortgageVersion("Version " + self.versionCount, self.versionCount);
+        var newVersion = new MortgageVersion(translater.getTranslation("Version", self.language) + " " + self.versionCount, self.versionCount);
         self.versions.push(newVersion);
-        setTimeout(function() {
+        setTimeout(function () {
             $("#versionTabs").tabs("destroy").tabs();
         }, 100);
     };
 }
 
-$(document).ready(function() {
-    ko.applyBindings(new MortgageModel());
-    $("#versionTabs").tabs();
-});
+function AppInit(language) {
+    $(document).ready(function () {
+        ko.applyBindings(new MortgageModel(language));
+        $("#versionTabs").tabs();
+    });
+}
+

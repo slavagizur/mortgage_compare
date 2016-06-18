@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Mortgage compare</title>
+    <title>Сравнение ипотеки</title>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <link rel="stylesheet" href="css/jquery-ui.theme.min.css">
     <link rel="stylesheet" href="css/aristo/Aristo.css">
@@ -15,11 +15,11 @@
     <script src="js/mortgage_i18n.js"></script>
     <script src="js/mortgage.js"></script>
     <script>
-        AppInit("en");
+        AppInit("ru");
     </script>
 </head>
 <body>
-<h1>Versions</h1>
+<h1>Версии</h1>
 <div class="mortgageVersion">
     <div id="versionTabs">
         <ul>
@@ -27,33 +27,33 @@
             <li data-bind="attr: { 'aria-controls': getVersionId }"><a
                     data-bind="text: name, attr: {href: getVersionId}"></a></li>
             <!-- /ko -->
-            <li><a data-bind="click: addNewVersion" class="addNewTab" title="Add new version">+</a>
+            <li><a data-bind="click: addNewVersion" class="addNewTab" title="Добавить новую версию">+</a>
             </li>
         </ul>
         <!-- ko foreach: versions -->
         <div data-bind="attr: {id: getVersionTabId}">
             <div class="mortgageParams">
                 <div class="mortgageInfo">
-                    <span>Name</span><span><input
-                        data-bind="value: name"></span><span>Month number</span>
+                    <span>Наименование</span><span><input
+                        data-bind="value: name"></span><span>Количество месяцев</span>
                     <span><input data-bind="value: monthNumber"></span>
                 </div>
                 <div class="mortgageInfo">
-                    <span>Initial amount</span><span><input data-bind="value: initAmount"></span>
-                    <span>Desired amount</span><span><input data-bind="value: desiredAmount"></span>
+                    <span>Первоначальный взнос</span><span><input data-bind="value: initAmount"></span>
+                    <span>Сумма кредита</span><span><input data-bind="value: desiredAmount"></span>
                 </div>
             </div>
             <table class="mortgageTable" cellspacing="0">
                 <thead>
                 <tr>
-                    <th rowspan="2">Month no</th>
-                    <th colspan="4">Amount</th>
+                    <th rowspan="2">Номер месяца</th>
+                    <th colspan="4">Сумма</th>
                 </tr>
                 <tr>
-                    <th>Left</th>
-                    <th>Percent</th>
-                    <th>Month (plan)</th>
-                    <th>To pay</th>
+                    <th>Остаток</th>
+                    <th>Проценты</th>
+                    <th>Месячный платеж (план.)</th>
+                    <th>Заплатить в месяце</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -75,11 +75,9 @@
                 </tr>
                 </tbody>
             </table>
-            <button data-bind="click: addData, enable: (monthsData().length < monthNumber)">Add
-                new
-                month
+            <button data-bind="click: addData, enable: (monthsData().length < monthNumber)">Добавить новый месяц
             </button>
-            <button data-bind="click: calcPercents">Calc percents</button>
+            <button data-bind="click: calcPercents">Рассчитать проценты</button>
         </div>
         <!-- /ko -->
     </div>
