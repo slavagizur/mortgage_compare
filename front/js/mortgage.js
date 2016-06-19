@@ -137,6 +137,7 @@ var mortgageAppInit = function() {};
                 realLanguage = language;
                 languageSuffix = "_" + language;
             }
+            document.title = ru.gizur.apps.translator.getTranslation("Mortgage compare", realLanguage);
             var templates = ["language", "versions", "main"];
             ru.gizur.apps.templates.load(templates, languageSuffix, function(templateResult) {
                 var wholeHtml = "";

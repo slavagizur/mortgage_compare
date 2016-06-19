@@ -18,4 +18,5 @@
     ru.gizur.apps.translator = new Translator();
 
     ru.gizur.apps.translator.addTranslation("Version", "ru", "Версия");
+    ru.gizur.apps.translator.addTranslation("Mortgage compare", "ru", "Сравнение по ипотеке");
 }());
