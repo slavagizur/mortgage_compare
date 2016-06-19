@@ -124,10 +124,41 @@ var mortgageAppInit = function() {};
         self.addNewVersion();
     }
 
-    mortgageAppInit = function AppInit(language) {
+    mortgageAppInit = function AppInit() {
+        var self = this;
+
+        this._load = function(language) {
+            var realLanguage = language, languageSuffix;
+            if (typeof realLanguage === 'undefined' || realLanguage.length === 0 || realLanguage === 'en') {
+                realLanguage = "en";
+                languageSuffix = "";
+            }
+            else {
+                realLanguage = language;
+                languageSuffix = "_" + language;
+            }
+            var templates = ["language", "versions", "main"];
+            ru.gizur.apps.templates.load(templates, languageSuffix, function(templateResult) {
+                var wholeHtml = "";
+                for (var no = 0; no < templateResult.length; no++) {
+                    wholeHtml += templateResult[no];
+                }
+                $(document).find("body").html(wholeHtml);
+                ko.applyBindings(new MortgageModel(realLanguage));
+                $("#versionTabs").tabs();
+
+                $(".languageSwitcher").on("click", function(event) {
+                    event.stopPropagation();
+                    window.location.href = $(this).attr("href");
+                    var $element = $(document).find("body");
+                    ko.cleanNode($element[0]);
+                    self._load(window.location.hash.substr(1));
+                });
+            });
+        };
+
         $(document).ready(function () {
-            ko.applyBindings(new MortgageModel(language));
-            $("#versionTabs").tabs();
+            self._load(window.location.hash.substr(1));
         });
     }
 })();

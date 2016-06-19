@@ -2,14 +2,7 @@
 <project version="4">
   <component name="PublishConfigData">
     <serverData>
-      <paths name="Jebb Moodle">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="My Moodle">
+      <paths name="MyMoodle">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />

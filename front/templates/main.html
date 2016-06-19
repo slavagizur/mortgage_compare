@@ -1,0 +1,64 @@
+<div class="mortgageVersion">
+    <div id="versionTabs">
+        <ul>
+            <!-- ko foreach: versions -->
+            <li data-bind="attr: { 'aria-controls': getVersionId }"><a
+                    data-bind="text: name, attr: {href: getVersionId}"></a></li>
+            <!-- /ko -->
+            <li><a data-bind="click: addNewVersion" class="addNewTab" title="Add new version">+</a>
+            </li>
+        </ul>
+        <!-- ko foreach: versions -->
+        <div data-bind="attr: {id: getVersionTabId}">
+            <div class="mortgageParams">
+                <div class="mortgageInfo">
+                    <span>Name</span><span><input
+                        data-bind="value: name"></span><span>Month number</span>
+                    <span><input data-bind="value: monthNumber"></span>
+                </div>
+                <div class="mortgageInfo">
+                    <span>Initial amount</span><span><input data-bind="value: initAmount"></span>
+                    <span>Desired amount</span><span><input data-bind="value: desiredAmount"></span>
+                </div>
+            </div>
+            <table class="mortgageTable" cellspacing="0">
+                <thead>
+                <tr>
+                    <th rowspan="2">Month no</th>
+                    <th colspan="4">Amount</th>
+                </tr>
+                <tr>
+                    <th>Left</th>
+                    <th>Percent</th>
+                    <th>Month (plan)</th>
+                    <th>To pay</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- ko foreach: monthsData -->
+                <tr>
+                    <td class="formatNumber" data-bind="text: formattedMonth"></td>
+                    <td class="formatNumber" data-bind="text: formattedAmount"></td>
+                    <td class="formatNumber" data-bind="text: formattedPercentAmount"></td>
+                    <td class="formatNumber" data-bind="text: formattedMonthAmount"></td>
+                    <td><input data-bind="value: toPay"></td>
+                </tr>
+                <!-- /ko -->
+                <tr>
+                    <td><b>Total</b></td>
+                    <td>&nbsp;</td>
+                    <td class="formatNumber" data-bind="text: totalPercentAmount"></td>
+                    <td>&nbsp;</td>
+                    <td class="formatNumber" data-bind="text: totalAmount"></td>
+                </tr>
+                </tbody>
+            </table>
+            <button data-bind="click: addData, enable: (monthsData().length < monthNumber)">Add
+                new
+                month
+            </button>
+            <button data-bind="click: calcPercents">Calc percents</button>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>

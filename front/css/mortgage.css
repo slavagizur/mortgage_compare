@@ -1,3 +1,7 @@
+a, a:active, a:hover, a:visited {
+    color: #00f;
+}
+
 .mortgageVersion .addNewTab {
     background: #E8E8E8;
     border: solid 1px transparent;
