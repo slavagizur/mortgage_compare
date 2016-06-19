@@ -41,5 +41,27 @@
         };
         
         ru.gizur.apps.NumberFormatter = new NumberFormatter();
+        
+        function DateFormatter() {
+        }
+        
+        DateFormatter.prototype.monthAndYear = function(monthNo, language) {
+            var result = "";
+            if (monthNo >= 12) {
+                result += Math.floor(monthNo / 12);
+                if (language === 'ru') {
+                    result += "г";
+                }
+                else {
+                    result += "y";
+                }
+            }
+            if (monthNo % 12 !== 0) {
+                result += monthNo % 12;
+            }
+            return result;
+        };
+
+        ru.gizur.apps.dateFormatter = new DateFormatter();
     }()
 );
