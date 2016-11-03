@@ -13,6 +13,8 @@ import java.io.PrintWriter;
 @WebServlet(name = "MortgageServlet", urlPatterns = "/mortgage/*")
 public class MortgageServlet extends javax.servlet.http.HttpServlet {
 
+    private static final double PERCENT = 11.5;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -39,7 +41,7 @@ public class MortgageServlet extends javax.servlet.http.HttpServlet {
         for (int monthRow = 0; monthRow < monthCount; monthRow++) {
             long monthAmount = getMonthAmount(curAmount, totalMonthCount - monthRow);
             long getToPay = getToPay(request, monthRow);
-            curPercent = getPercentCalculated(monthAmount, 13.0, curAmount, 1);
+            curPercent = getPercentCalculated(monthAmount, PERCENT, curAmount, 1);
             curRow = new JSONObject();
             curRow.put("monthAmount", monthAmount);
             curRow.put("percentAmount", curPercent);
@@ -65,7 +67,7 @@ public class MortgageServlet extends javax.servlet.http.HttpServlet {
 
     private long getMonthAmount(long amount, int monthCount) {
         long increaseAmount = 100_000L * 100L, curAmount = 0;
-        double realPercent = 13.0;
+        double realPercent = PERCENT;
         while (increaseAmount > 0) {
             curAmount += increaseAmount;
             long calculated = getCalculated(curAmount, realPercent, amount, monthCount);
